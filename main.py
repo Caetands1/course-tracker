@@ -1,8 +1,6 @@
-from fastapi import FastAPI
 from fastapi import FastAPI, Request
 from fastapi.templating import Jinja2Templates
-from fastapi.responses import HTMLResponse
-from fastapi.responses import RedirectResponse
+from fastapi.responses import HTMLResponse,RedirectResponse
 
 from pathlib import Path
 
@@ -27,7 +25,7 @@ async def auth():
         await page.goto("https://learn.uea.ac.uk/ultra/course")
 
         try:
-            # Wait until courses appear -> user is logged in and 2FA done
+            # courses appear -> user is logged in + 2fa cookies logged
             await page.wait_for_selector("article.element-card.course-element-card", timeout=300_000)
         except:
             await browser.close()
