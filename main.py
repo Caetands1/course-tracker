@@ -56,7 +56,6 @@ async def scrape_blackboard():
             """)
             await page.wait_for_timeout(700)
 
-        # Scrape courses
         courses = []
         course_articles = await page.query_selector_all("article.element-card.course-element-card")
         for article in course_articles:
@@ -79,7 +78,7 @@ async def scrape_blackboard():
 async def show_courses(request: Request):
     path = Path("courses.json")
     if not path.exists():
-        return HTMLResponse("<h1>No course data found. Please scrape first.</h1>", status_code=404)
+        return HTMLResponse("<h1>No course data found. Scrape first.</h1>", status_code=404)
 
     courses = json.loads(path.read_text())
     return templates.TemplateResponse("courses.html", {"request": request, "courses": courses})
