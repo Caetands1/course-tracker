@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+    <html>
+    <head>
+        <title>UEA Blackboard Auth</title>
+        <style>
+            body { font-family: sans-serif; text-align: center; padding-top: 50px; background: #f0f0f0; }
+            button {
+                padding: 1em 2em;
+                font-size: 1.2em;
+                border: none;
+                border-radius: 8px;
+                background: #4f46e5;
+                color: white;
+                cursor: pointer;
+                transition: background 0.3s;
+            }
+            button:hover {
+                background: #4338ca;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>UEA Blackboard Login</h1>
+        <p>Click the button below to begin login:</p>
+        <button onclick="startLogin()">Begin Login</button>
+
+        <script>
+            function startLogin() {
+                const authWindow = window.open('/auth', '_blank', 'width=1000,height=900');
+                const interval = setInterval(() => {
+                    if (authWindow.closed) {
+                        clearInterval(interval);
+                        alert("Login window closed. You can now scrape!");
+                    }
+                }, 1000);
+            }
+        </script>
+    </body>
+    </html>
