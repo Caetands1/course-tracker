@@ -4,7 +4,16 @@
         <title>UEA Blackboard Auth</title>
         <style>
             body { font-family: sans-serif; text-align: center; padding-top: 50px; background: #f0f0f0; }
+            .btndiv {
+                display: flex;
+                flex-direction: column;
+                row-gap: 20px;
+            }
             button {
+
+                margin: 0 auto;
+                margin-bottom: 1vh;
+                width: 40%;
                 padding: 1em 2em;
                 font-size: 1.2em;
                 border: none;
@@ -12,7 +21,6 @@
                 background: #4f46e5;
                 color: white;
                 cursor: pointer;
-                transition: background 0.3s;
             }
             button:hover {
                 background: #4338ca;
@@ -20,11 +28,22 @@
         </style>
     </head>
     <body>
-        <h1>UEA Blackboard Login</h1>
-        <p>Click the button below to begin login:</p>
-        <button onclick="startLogin()">Begin Login</button>
+        <h1>UEA Blackboard Web Scraper</h1>
+        <h2>By Caetan De Sousa</h2>
+        <div class="btndiv">
+            <!-- Allows the user to login to blackboard providing auth-->
+            <button id="loginbtn" onclick="startLogin()">Begin Login</button>
+            
+            <!-- Redirects user to the courses page -->
+            <button id="viewcourses" onclick="viewCourses()">View Courses</button>
+            
+            <!-- Allows the user to view their marks via evision * OR MANUALLY INPUT? TODO-->
+            <button id="modulemarks">View Module Marks</button> <!-- TODO Functionality (logic + nav) needs to be added here-->
+        </div>
 
         <script>
+            const loggedin = false;
+
             function startLogin() {
                 const authWindow = window.open('/auth', '_blank', 'width=1000,height=900');
                 const interval = setInterval(() => {
@@ -32,8 +51,19 @@
                         clearInterval(interval);
                         alert("Login window closed. You can now scrape!");
                     }
+
+                    loggedin = true
                 }, 1000);
             }
+            
+            function viewCourses() {
+                window.location.href = "courses";
+            }
+            const loginBtn = document.getElementById("loginbtn");
+            if (loggedin) {
+                loginBtn.style.display = 'none';
+            }
+            
         </script>
     </body>
     </html>
