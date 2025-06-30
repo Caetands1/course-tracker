@@ -38,7 +38,7 @@ async def auth():
 @app.get("/scrape")
 async def scrape_blackboard():
     async with async_playwright() as p:
-        browser = await p.chromium.launch(headless=False)
+        browser = await p.chromium.launch(headless=True)
         context = await browser.new_context(storage_state="auth.json")
 
         page = await context.new_page()
