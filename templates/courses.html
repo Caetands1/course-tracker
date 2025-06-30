@@ -7,14 +7,52 @@
         h1 { color: rebeccapurple; }
         ul { list-style-type: none; padding: 0; }
         li { background: #f0f0f0; margin: 0.5rem 0; padding: 1rem; border-radius: 8px; }
+        a {text-decoration: none;}
+        #homebtn {
+            padding: 1vh 1.5vw;
+        }
+        #scrapeCourse {
+            background-color: #4CAF50; /* Green */
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            cursor: pointer;
+            float: right;
+            border-radius: 12px;
+        }
     </style>
 </head>
 <body>
+    <button id="homebtn"><a href="/">Home</a></button>
     <h1>Your Courses</h1>
     <ul>
         {% for course in courses %}
-            <li><strong>{{ course.title }}</strong> (ID: {{ course.id }})</li>
+            <li><strong>{{ course.title }}</strong> (ID: {{ course.id }}) <button id="scrapeCourse">Scrape</button></li>
         {% endfor %}
     </ul>
+
+    <script>
+
+        document.querySelectorAll('#scrapeCourse').forEach(button => {
+            button.addEventListener('click', function() {
+                const courseId = this.parentElement.textContent.match(/ID: (\d+)/)[1];
+                fetch(`/scrape_course/${courseId}`, { method: 'POST' })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            alert('Course scraped successfully!');
+                        } else {
+                            alert('Failed to scrape course.');
+                        }
+                    })
+                    .catch(error => console.error('Error:', error));
+            });
+        });
+
+    </script>
 </body>
 </html>
