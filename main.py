@@ -61,6 +61,8 @@ async def scrape_blackboard():
             title_elem = await article.query_selector("h4.js-course-title-element")
             title = await title_elem.inner_text() if title_elem else ""
             if article_id and title:
+                # Clean up the article ID to remove any prefix
+                article_id = article_id.replace("course-list-course-", "")
                 courses.append({"id": article_id, "title": title})
 
         await browser.close()
