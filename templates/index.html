@@ -11,11 +11,15 @@
             <!-- Allows the user to login to blackboard providing auth-->
             <button id="loginbtn" onclick="startLogin()">Begin Login</button>
             
+            <!-- Scrapes the user's courses -->
+            <button id="scrapecourses" onclick="scrapeCourses()"> Scrape Courses</button>
+
             <!-- Redirects user to the courses page -->
             <button id="viewcourses" onclick="viewCourses()">View Courses</button>
             
             <!-- Allows the user to view their marks via evision * OR MANUALLY INPUT? TODO-->
             <button id="modulemarks">View Module Marks</button> <!-- TODO Functionality (logic + nav) needs to be added here-->
+
         </div>
 
         <script>
@@ -36,6 +40,11 @@
             function viewCourses() {
                 window.location.href = "courses";
             }
+
+            function scrapeCourses() {
+                window.location.href = "scrape";
+            }
+
             const loginBtn = document.getElementById("loginbtn");
             if (loggedin) {
                 loginBtn.style.display = 'none';

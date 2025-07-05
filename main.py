@@ -87,20 +87,15 @@ async def show_courses(request: Request):
     courses = json.loads(path.read_text())
     return templates.TemplateResponse("courses.html", {"request": request, "courses": courses})
 
-@app.get("scrapeCourse{course_id}", response_class=HTMLResponse)
+@app.get("/scrapeCourse/{course_id}", response_class=HTMLResponse)
 async def scrape_course(request: Request, course_id: str):
     async with async_playwright() as p:
         browser = await p.chromium.launch(headless=False)
         context = await browser.new_context(storage_state="auth.json")
-
         page = await context.new_page()
         await page.goto(f"https://learn.uea.ac.uk/ultra/courses/{course_id}/outline")
-
-        # Wait for the course content to load
         await page.wait_for_load_state("networkidle")
 
-        
 
         await browser.close()
-
         return RedirectResponse(url="/courses", status_code=303)

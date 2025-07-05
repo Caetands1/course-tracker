@@ -24,17 +24,21 @@
 
         document.querySelectorAll('#scrapeCourse').forEach(button => {
             button.addEventListener('click', function() {
-                const courseId = this.parentElement.textContent.match(/ID: (\d+)/)[1];
-                fetch(`/scrape_course/${courseId}`, { method: 'POST' })
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.success) {
-                            alert('Course scraped successfully!');
-                        } else {
-                            alert('Failed to scrape course.');
-                        }
-                    })
-                    .catch(error => console.error('Error:', error));
+            const courseIdDiv = this.parentElement.querySelector('#courseID');
+            const courseIdText = courseIdDiv.innerText;
+            const courseId = courseIdText.replace('ID: ', '').trim(); // Gets the ID number
+            
+            console.log(courseId);
+            fetch(`/scrapeCourse/${courseId}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert('Course scraped successfully!');
+                    } else {
+                        alert('Failed to scrape course.');
+                    }
+                })
+                .catch(error => console.error('Error:', error));
             });
         });
 
