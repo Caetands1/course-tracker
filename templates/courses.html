@@ -2,36 +2,21 @@
 <html>
 <head>
     <title>Your UEA Courses</title>
-    <style>
-        body { font-family: sans-serif; padding: 2rem; }
-        h1 { color: rebeccapurple; }
-        ul { list-style-type: none; padding: 0; }
-        li { background: #f0f0f0; margin: 0.5rem 0; padding: 1rem; border-radius: 8px; }
-        a {text-decoration: none;}
-        #homebtn {
-            padding: 1vh 1.5vw;
-        }
-        #scrapeCourse {
-            background-color: #4CAF50; /* Green */
-            color: white;
-            border: none;
-            padding: 5px 10px;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-            font-size: 16px;
-            cursor: pointer;
-            float: right;
-            border-radius: 12px;
-        }
-    </style>
+    <link rel="stylesheet" href="styles/courses.css">
 </head>
 <body>
-    <button id="homebtn"><a href="/">Home</a></button>
+    <a href="/"><button id="homebtn">Home</button></a>
     <h1>Your Courses</h1>
     <ul>
         {% for course in courses %}
-            <li><strong>{{ course.title }}</strong> (ID: {{ course.id }}) <button id="scrapeCourse">Scrape</button></li>
+    <li>
+        <div>
+            <strong>{{ course.title }}</strong><br>
+            <p id="courseID">ID: {{ course.id }}</p>
+        </div>
+        <button id="scrapeCourse">Scrape</button>
+    </li>
+
         {% endfor %}
     </ul>
 

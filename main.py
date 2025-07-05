@@ -1,7 +1,9 @@
 from fastapi import FastAPI, Request
+from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from fastapi.responses import HTMLResponse,RedirectResponse
 
+import psycopg3
 from pathlib import Path
 
 import json
@@ -10,6 +12,8 @@ from playwright.async_api import async_playwright
 
 app = FastAPI()
 templates = Jinja2Templates(directory="templates")
+
+app.mount("/styles", StaticFiles(directory="templates/styles"), name="styles")
 
 @app.get("/", response_class=HTMLResponse)
 async def home():
